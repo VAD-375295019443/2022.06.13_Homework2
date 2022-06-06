@@ -107,7 +107,15 @@ namespace Temporary1
                 F_voiNumberControl(ref strExpression); //Выполняем поиск чисел.
 
 
-                F_voiTextControl(ref strExpression); //Выполняем поиск функций введенных пользователем.
+                F_voiFunctionControl(ref strExpression); //Выполняем поиск функций введенных пользователем.
+
+
+
+
+
+
+
+
 
 
 
@@ -202,9 +210,9 @@ namespace Temporary1
 
 
 
-        static void F_voiTextControl(ref string f_strExpression)
+        static void F_voiFunctionControl(ref string f_strExpression)
         {
-            bool booControl = false; //т.е. не текст.
+            bool booControlNameFunction = false; //т.е. не текст.
 
             for (int int1 = 0; int1 <= f_strExpression.Length - 1; int1++)
             {
@@ -227,29 +235,44 @@ namespace Temporary1
                     f_strExpression[int1] != '8' &&
                     f_strExpression[int1] != '9')
                 {
-                    if (booControl == false) //Если мы не в тексте.
+                    if (booControlNameFunction == false) //Если мы не в тексте.
                     {
-                        booControl = true; //Заходим в текст.
-                        f_strExpression = f_strExpression.Insert(int1, "[");
+                        booControlNameFunction = true; //Заходим в текст.
+                        f_strExpression = f_strExpression.Insert(int1, "([");
                     }
                 }
                 else
                 {
-                    if (booControl == true) //Если мы в тексте.
+                    if (booControlNameFunction == true) //Если мы в тексте.
                     {
-                        booControl = false; //Выходим из текста.
+                        booControlNameFunction = false; //Выходим из текста.
                         f_strExpression = f_strExpression.Insert(int1, "]");
+
+
+                        int intStopBracket = int1;
+                        bool booError = false;
+
+                        booError = F_booRightBracketPosition(f_strExpression, int1, ref intStopBracket);
+
+                        if (booError == false)
+                        {
+                            f_strExpression = f_strExpression.Insert(intStopBracket, ")");
+                        }
+                        else
+                        {
+                            f_strExpression = f_strExpression.Insert(int1 + 1, ")");
+                        }
                     }
                 }
             }
 
-            if (booControl == true) //Если мы в тексте.
+            //Обработка конца строки.
+            if (booControlNameFunction == true) //Если мы в тексте.
             {
-                booControl = false; //Выходим из текста.
-                f_strExpression = f_strExpression + "]";
+                booControlNameFunction = false; //Выходим из текста.
+                f_strExpression = f_strExpression + "])";
             }
         }
-
 
 
         static void F_voiNumberControl(ref string f_strExpression)
@@ -294,16 +317,66 @@ namespace Temporary1
         }
 
 
+        static bool F_booRightBracketPosition(in string f_strExpression, in int f_intStartBracket, ref int f_intStopBracket)
+        {
+            int intCountBracket = 0; //т.е. скобок нет.
+            bool booControlBracket = false; //Контроль вхождения в зону открытия скобок.
+
+            for (int int1 = f_intStartBracket; int1 <= f_strExpression.Length - 1; int1++)
+            {
+                if (f_strExpression[int1] == '(')
+                {
+                    if (booControlBracket == false) //Если скобок еще не было.
+                    {
+                        booControlBracket = true; //Регистрируем скобку (т.е. скобки все таки есть).
+                    }
+
+                    intCountBracket++; //Плюсуем одну (.
+                }
+                else if (f_strExpression[int1] == ')')
+                {
+                    intCountBracket--; //Минусуем одну ).
+                }
+
+                if (booControlBracket == true && intCountBracket == 0)
+                {
+                    f_intStopBracket = int1;
+                    return (false);
+                }
+            }
+            return (true);
+        }
 
 
+        static bool F_booLeftBracketPosition(in string f_strExpression, in int f_intStartBracket, ref int f_intStopBracket)
+        {
+            int intCountBracket = 0; //т.е. скобок нет.
+            bool booControlBracket = false; //Контроль вхождения в зону открытия скобок.
 
+            for (int int1 = f_intStartBracket; int1 >= 0; int1--)
+            {
+                if (f_strExpression[int1] == ')')
+                {
+                    if (booControlBracket == false) //Если скобок еще не было.
+                    {
+                        booControlBracket = true; //Регистрируем скобку (т.е. скобки все таки есть).
+                    }
 
+                    intCountBracket++; //Плюсуем одну ).
+                }
+                else if (f_strExpression[int1] == '(')
+                {
+                    intCountBracket--; //Минусуем одну (.
+                }
 
-
-
-
-
-
+                if (booControlBracket == true && intCountBracket == 0)
+                {
+                    f_intStopBracket = int1;
+                    return (false);
+                }
+            }
+            return (true);
+        }
 
 
     }
