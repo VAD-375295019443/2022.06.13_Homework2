@@ -104,10 +104,16 @@ namespace Temporary1
                 //------------------------------------------------------------------------------
 
 
+                F_voiNumberControl(ref strExpression); //Выполняем поиск чисел.
 
 
                 F_voiTextControl(ref strExpression); //Выполняем поиск функций введенных пользователем.
 
+
+
+
+
+                /*
                 //После названия каждой функции должна быть комбинация: ](
                 bool booError = false;
                 for (int int1 = 0; int1 <= strExpression.Length - 2; int1++)
@@ -120,7 +126,6 @@ namespace Temporary1
                             Console.WriteLine("");
                             booError = true;
                             break;
-
                         }
                     }
                 }
@@ -129,6 +134,15 @@ namespace Temporary1
                     booError = false;
                     continue;
                 }
+                */
+
+
+
+
+
+
+
+                //Контроль чисел!!!!!!!!!!!!!!!!!!
 
 
 
@@ -142,16 +156,6 @@ namespace Temporary1
 
 
 
-
-
-
-
-
-
-
-
-
-                F_voiNumberControl(ref strExpression); //Выполняем поиск чисел.
 
                 /*
                 if (strExpression[0] == '/' || strExpression[0] == '*')
