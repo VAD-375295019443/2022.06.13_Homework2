@@ -127,7 +127,7 @@ namespace Temporary1
                 }
 
 
-
+                F_voiFunctionControlFuture(ref strExpression);
 
 
 
@@ -311,8 +311,8 @@ namespace Temporary1
                         f_strExpression = f_strExpression.Insert(int1, "]");
 
 
-                        int intStopBracket = 0;
                         bool booError = false;
+                        int intStopBracket = 0;
 
                         booError = F_booRightBracketPosition(f_strExpression, int1, ref intStopBracket);
 
@@ -344,25 +344,58 @@ namespace Temporary1
         static void F_voiFunctionControlFuture(ref string f_strExpression) //Пересмотреть по поводу -3.
         {
             bool booError = false;
+            int intStopBracket = 0;
+
             for (int int1 = 1; int1 <= f_strExpression.Length - 2; int1++)
             {
                 if (f_strExpression[int1] == '/')
                 {
-                    if (f_strExpression[int1-1] == ')' && f_strExpression[int1+1] == '(' &&)
+                    if (f_strExpression[int1-1] == ')' && f_strExpression[int1+1] == '(')
                     {
                         f_strExpression = f_strExpression.Remove(int1, 1);
                         f_strExpression = f_strExpression.Insert(int1, ",");
 
+                        booError = false;
+                        intStopBracket = 0;
 
+                        booError = F_booRightBracketPosition(f_strExpression, int1, ref intStopBracket);
+                        if (booError == false)
+                        {
+                            f_strExpression = f_strExpression.Insert(intStopBracket, "))");
+                        }
 
-
-
-
+                        booError = F_booLeftBracketPosition(f_strExpression, int1, ref intStopBracket);
+                        if (booError == false)
+                        {
+                            f_strExpression = f_strExpression.Insert(intStopBracket, "([Div](");
+                        }
                     }
-
                 }
-                
-                
+                else if (f_strExpression[int1] == '*')
+                {
+                    if (f_strExpression[int1 - 1] == ')' && f_strExpression[int1 + 1] == '(')
+                    {
+                        f_strExpression = f_strExpression.Remove(int1, 1);
+                        f_strExpression = f_strExpression.Insert(int1, ",");
+
+                        booError = false;
+                        intStopBracket = 0;
+
+                        booError = F_booRightBracketPosition(f_strExpression, int1, ref intStopBracket);
+                        if (booError == false)
+                        {
+                            f_strExpression = f_strExpression.Insert(intStopBracket, "))");
+                        }
+
+                        booError = F_booLeftBracketPosition(f_strExpression, int1, ref intStopBracket);
+                        if (booError == false)
+                        {
+                            f_strExpression = f_strExpression.Insert(intStopBracket, "([Mult](");
+                        }
+                    }
+                }
+
+
 
 
 
