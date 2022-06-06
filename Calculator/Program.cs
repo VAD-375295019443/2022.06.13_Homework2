@@ -109,7 +109,7 @@ namespace Temporary1
                 F_voiNumberControl(ref strExpression); //Выполняем поиск чисел.
 
 
-                F_voiFunctionControl(ref strExpression); //Выполняем поиск функций.
+                F_voiFunctionControlHistory(ref strExpression); //Выполняем поиск функций.
 
 
                 //Корректируем начало строки.
@@ -125,6 +125,14 @@ namespace Temporary1
                         strExpression =  strExpression.Insert(0, "(-1)*");
                     }
                 }
+
+
+
+
+
+
+
+
 
 
 
@@ -264,7 +272,7 @@ namespace Temporary1
         }
 
 
-        static void F_voiFunctionControl(ref string f_strExpression)
+        static void F_voiFunctionControlHistory(ref string f_strExpression)
         {
             bool booControlNameFunction = false; //т.е. не текст.
 
@@ -326,6 +334,34 @@ namespace Temporary1
                 f_strExpression = f_strExpression + "])";
             }
         }
+
+
+
+        static void F_voiFunctionControlFuture(ref string f_strExpression) //Пересмотреть по поводу -3.
+        {
+            for (int int1 = 0; int1 <= f_strExpression.Length - 3; int1++)
+            {
+
+
+
+
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
         static bool F_booRightBracketPosition(in string f_strExpression, in int f_intStartBracket, ref int f_intStopBracket)
