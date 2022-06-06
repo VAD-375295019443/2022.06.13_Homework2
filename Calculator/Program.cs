@@ -102,15 +102,29 @@ namespace Temporary1
                     continue;
                 }
                 //------------------------------------------------------------------------------
-
+                //------------------------------------------------------------------------------
+                //------------------------------------------------------------------------------
+                //------------------------------------------------------------------------------
 
                 F_voiNumberControl(ref strExpression); //Выполняем поиск чисел.
 
 
-                F_voiFunctionControl(ref strExpression); //Выполняем поиск функций введенных пользователем.
+                F_voiFunctionControl(ref strExpression); //Выполняем поиск функций.
 
 
-
+                //Корректируем начало строки.
+                if (strExpression.Length > 1 && strExpression[1] == '(')
+                {
+                    if (strExpression[0] == '+')
+                    {
+                        strExpression = strExpression.Remove(0, 1);
+                    }
+                    else if (strExpression[0] == '-')
+                    {
+                        strExpression = strExpression.Remove(0, 1);
+                        strExpression =  strExpression.Insert(0, "(-1)*");
+                    }
+                }
 
 
 
@@ -199,15 +213,55 @@ namespace Temporary1
                 */
 
 
-
                 Console.WriteLine(strExpression);
                 Console.WriteLine("");
+
             }
         }
 
 
 
 
+        static void F_voiNumberControl(ref string f_strExpression)
+        {
+            bool booControl = false; //т.е. не число.
+
+            for (int int1 = 0; int1 <= f_strExpression.Length - 1; int1++)
+            {
+                if (f_strExpression[int1] == '.' ||
+                    f_strExpression[int1] == '0' ||
+                    f_strExpression[int1] == '1' ||
+                    f_strExpression[int1] == '2' ||
+                    f_strExpression[int1] == '3' ||
+                    f_strExpression[int1] == '4' ||
+                    f_strExpression[int1] == '5' ||
+                    f_strExpression[int1] == '6' ||
+                    f_strExpression[int1] == '7' ||
+                    f_strExpression[int1] == '8' ||
+                    f_strExpression[int1] == '9')
+                {
+                    if (booControl == false) //Если мы не в числе.
+                    {
+                        booControl = true; //Заходим в число.
+                        f_strExpression = f_strExpression.Insert(int1, "(");
+                    }
+                }
+                else
+                {
+                    if (booControl == true) //Если мы в числе.
+                    {
+                        booControl = false; //Выходим из числа.
+                        f_strExpression = f_strExpression.Insert(int1, ")");
+                    }
+                }
+            }
+
+            if (booControl == true) //Если мы в числе.
+            {
+                booControl = false; //Выходим из числа.
+                f_strExpression = f_strExpression + ")";
+            }
+        }
 
 
         static void F_voiFunctionControl(ref string f_strExpression)
@@ -249,7 +303,7 @@ namespace Temporary1
                         f_strExpression = f_strExpression.Insert(int1, "]");
 
 
-                        int intStopBracket = int1;
+                        int intStopBracket = 0;
                         bool booError = false;
 
                         booError = F_booRightBracketPosition(f_strExpression, int1, ref intStopBracket);
@@ -269,50 +323,7 @@ namespace Temporary1
             //Обработка конца строки.
             if (booControlNameFunction == true) //Если мы в тексте.
             {
-                booControlNameFunction = false; //Выходим из текста.
                 f_strExpression = f_strExpression + "])";
-            }
-        }
-
-
-        static void F_voiNumberControl(ref string f_strExpression)
-        {
-            bool booControl = false; //т.е. не число.
-
-            for (int int1 = 0; int1 <= f_strExpression.Length - 1; int1++)
-            {
-                if (f_strExpression[int1] == '.' ||
-                    f_strExpression[int1] == '0' ||
-                    f_strExpression[int1] == '1' ||
-                    f_strExpression[int1] == '2' ||
-                    f_strExpression[int1] == '3' ||
-                    f_strExpression[int1] == '4' ||
-                    f_strExpression[int1] == '5' ||
-                    f_strExpression[int1] == '6' ||
-                    f_strExpression[int1] == '7' ||
-                    f_strExpression[int1] == '8' ||
-                    f_strExpression[int1] == '9')
-                {
-                    if (booControl == false) //Если мы не в числе.
-                    {
-                        booControl = true; //Заходим в число.
-                        f_strExpression = f_strExpression.Insert(int1, "(");
-                    }
-                }
-                else
-                {
-                    if (booControl == true) //Если мы в числе.
-                    {
-                        booControl = false; //Выходим из числа.
-                        f_strExpression = f_strExpression.Insert(int1, ")");
-                    }
-                }
-            }
-
-            if (booControl == true) //Если мы в числе.
-            {
-                booControl = false; //Выходим из числа.
-                f_strExpression = f_strExpression + ")";
             }
         }
 
