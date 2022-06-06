@@ -337,11 +337,32 @@ namespace Temporary1
 
 
 
+
+
+
+
         static void F_voiFunctionControlFuture(ref string f_strExpression) //Пересмотреть по поводу -3.
         {
-            for (int int1 = 0; int1 <= f_strExpression.Length - 3; int1++)
+            bool booError = false;
+            for (int int1 = 1; int1 <= f_strExpression.Length - 2; int1++)
             {
+                if (f_strExpression[int1] == '/')
+                {
+                    if (f_strExpression[int1-1] == ')' && f_strExpression[int1+1] == '(' &&)
+                    {
+                        f_strExpression = f_strExpression.Remove(int1, 1);
+                        f_strExpression = f_strExpression.Insert(int1, ",");
 
+
+
+
+
+
+                    }
+
+                }
+                
+                
 
 
 
