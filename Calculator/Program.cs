@@ -1,12 +1,12 @@
 ﻿using System;
 
-namespace Temporary1
+namespace Calculator
 {
     internal class Program
     {
         static void Main(string[] args)
         {
-            string? strExpression;
+            string? strExpression = null;
 
             while (1 == 1)
             {
@@ -29,7 +29,33 @@ namespace Temporary1
                 //Какой-то значимый текст точно введен, потому далее.
 
 
-                if (strExpression.Contains("[") == true || strExpression.Contains("]") == true || strExpression.Contains("=") == true) //Проверяем на наличие скобок, которые в дальнейшем будут определять методы, и знака = (т.е. изначально быть скобок и знака = не должно).
+//!!!!!!!!!!!!!!!!!!!!!!!!
+
+
+                for (int int1 = 0; int1 <= strExpression.Length - 1; int1++)
+                {
+                    if (strExpression[int1] == '.')
+                    {
+                        strExpression = strExpression.Remove(int1, 1);
+                        strExpression = strExpression.Insert(int1, ",");
+                    }
+                    else if (strExpression[int1] == ',')
+                    {
+                        strExpression = strExpression.Remove(int1, 1);
+                        strExpression = strExpression.Insert(int1, ".");
+                    }
+
+
+                }
+
+                //Console.WriteLine(strExpression);
+
+
+
+
+
+
+                if (strExpression.Contains("[") == true || strExpression.Contains("]") == true || strExpression.Contains("{") == true || strExpression.Contains("}") == true || strExpression.Contains("=") == true) //Проверяем на наличие скобок, которые в дальнейшем будут определять методы, и знака = (т.е. изначально быть скобок и знака = не должно).
                 {
                     Console.WriteLine("Вы ввели не корректные данные.");
                     Console.WriteLine("");
@@ -37,36 +63,6 @@ namespace Temporary1
                 }
 
                 /*
-                //В этом блоке проверяем на некорректный ввод данных: ++ -* /* +- ...
-                string[] arrstrOperator = new string[0];
-                Array.Resize(ref arrstrOperator, 4);
-                arrstrOperator[0] = "+";
-                arrstrOperator[1] = "-";
-                arrstrOperator[2] = "*";
-                arrstrOperator[3] = "/";
-
-                string strOperators = "";
-
-                for (int int1 = 0; int1 <= arrstrOperator.Length - 1; int1++)
-                {
-                    for (int int2 = 0; int2 <= arrstrOperator.Length - 1; int2++)
-                    {
-                        strOperators = arrstrOperator[int1] + arrstrOperator[int2];
-
-                        if (strExpression.Contains(strOperators) == true)
-                        {
-                            Console.WriteLine("Вы ввели не корректные данные.");
-                            Console.WriteLine("");
-                            continue;
-                        }
-                    }
-                    if (strExpression.Contains(strOperators) == true)
-                    {
-                        continue;
-                    }
-                }
-                */
-
                 //------------------------------------------------------------------------------
                 //Проверяем круглые скобки на парность.
                 int intControlParentheses = 0; //Скобок 0.
@@ -101,11 +97,8 @@ namespace Temporary1
                     Console.WriteLine("");
                     continue;
                 }
-
-
-
-
-
+                */
+                
                 //------------------------------------------------------------------------------
                 //------------------------------------------------------------------------------
                 //------------------------------------------------------------------------------
@@ -114,7 +107,7 @@ namespace Temporary1
                 F_voiNumberControl(ref strExpression); //Выполняем поиск чисел.
 
 
-                F_voiFunctionControlHistory(ref strExpression); //Выполняем поиск функций.
+                F_voiFunctionControlHistory(ref strExpression); //Выполняем поиск введенных функций.
 
 
                 //Корректируем начало строки.
@@ -132,78 +125,43 @@ namespace Temporary1
                 }
 
 
-                F_voiFunctionControlFuture(ref strExpression);
+                F_voiFunctionControlFuture(ref strExpression); //Создаем функции /, *, +,-.
 
-
-
-                /*
-                //После названия каждой функции должна быть комбинация: ](
-                bool booError = false;
-                for (int int1 = 0; int1 <= strExpression.Length - 2; int1++)
+                
+                bool booControlCalculationOfSimpleFunctions = true;
+                while (booControlCalculationOfSimpleFunctions == true)
                 {
-                    if (strExpression[int1] == ']')
-                    {
-                        if (strExpression[int1 + 1] != '(')
-                        {
-                            Console.WriteLine("Вы ввели не корректные данные.");
-                            Console.WriteLine("");
-                            booError = true;
-                            break;
-                        }
-                    }
-                }
-                if (booError == true)
-                {
-                    booError = false;
-                    continue;
-                }
-                */
-
-
-
-                //Контроль чисел!!!!!!!!!!!!!!!!!!
-
-
-
-                /*
-                if (strExpression[0] == '/' || strExpression[0] == '*')
-                {
-                    Console.WriteLine("Вы ввели не корректные данные.");
-                    Console.WriteLine("");
-                    continue;
-                }
-
-                if (strExpression[0] == '+')
-                {
-                    strExpression = strExpression.Substring(0, 0); //Удаляем + в начале строки.
+                    booControlCalculationOfSimpleFunctions = F_booCalculationOfSimpleFunctions(ref strExpression); //Преобразование простых функций.
                 }
                 
-                if (strExpression == "") //Если после удаления + строка пустая, то error.
-                {
-                    Console.WriteLine("Вы ввели не корректные данные.");
-                    Console.WriteLine("");
-                    continue;
-                }
-                */
 
 
 
-
-
-                /*
-                if (strExpression[0] == '-')
-                {
-                    strExpression = strExpression.Insert(0, "(");
-
-                }
-                */
-
-
+                
                 Console.WriteLine(strExpression);
                 Console.WriteLine("");
 
+                
+                /*
+                string xx = Console.ReadLine();
+                bool z = false;
+                double zz;
+                z = double.TryParse(xx, out zz);
+                
+                Console.WriteLine(zz);
+                */
             }
         }
+
+
+
+
+
+        static void F_voiCalculationOfComplexFunctions(ref string f_strExpression)
+        {
+        }
+
+
 
 
         static void F_voiNumberControl(ref string f_strExpression)
@@ -212,7 +170,7 @@ namespace Temporary1
 
             for (int int1 = 0; int1 <= f_strExpression.Length - 1; int1++)
             {
-                if (f_strExpression[int1] == '.' ||
+                if (f_strExpression[int1] == ',' ||
                     f_strExpression[int1] == '0' ||
                     f_strExpression[int1] == '1' ||
                     f_strExpression[int1] == '2' ||
@@ -228,6 +186,7 @@ namespace Temporary1
                     {
                         booControl = true; //Заходим в число.
                         f_strExpression = f_strExpression.Insert(int1, "(");
+                        int1 = int1 + 1;
                     }
                 }
                 else
@@ -236,6 +195,7 @@ namespace Temporary1
                     {
                         booControl = false; //Выходим из числа.
                         f_strExpression = f_strExpression.Insert(int1, ")");
+                        int1 = int1 + 1;
                     }
                 }
             }
@@ -262,6 +222,10 @@ namespace Temporary1
                     f_strExpression[int1] != '.' &&
                     f_strExpression[int1] != '(' &&
                     f_strExpression[int1] != ')' &&
+                    f_strExpression[int1] != '[' &&
+                    f_strExpression[int1] != ']' &&
+                    f_strExpression[int1] != '{' &&
+                    f_strExpression[int1] != '}' &&
                     f_strExpression[int1] != '0' &&
                     f_strExpression[int1] != '1' &&
                     f_strExpression[int1] != '2' &&
@@ -277,6 +241,7 @@ namespace Temporary1
                     {
                         booControlNameFunction = true; //Заходим в текст.
                         f_strExpression = f_strExpression.Insert(int1, "([");
+                        int1 = int1 + 2;
                     }
                 }
                 else
@@ -284,21 +249,30 @@ namespace Temporary1
                     if (booControlNameFunction == true) //Если мы в тексте.
                     {
                         booControlNameFunction = false; //Выходим из текста.
-                        f_strExpression = f_strExpression.Insert(int1, "]");
-
-
-                        bool booError = false;
-                        int intStopBracket = 0;
-
-                        booError = F_booRightBracketPosition(f_strExpression, int1, ref intStopBracket);
-
-                        if (booError == false)
+                        
+                        if (f_strExpression[int1] == '(')
                         {
-                            f_strExpression = f_strExpression.Insert(intStopBracket, ")");
+                            bool booResult = false;
+                            int intStopBracket = 0;
+
+                            booResult = F_booRightBracketPosition(f_strExpression, int1, ref intStopBracket);
+                            
+                            if (booResult == true)
+                            {
+                                f_strExpression = f_strExpression.Remove(intStopBracket, 1);
+                                f_strExpression = f_strExpression.Insert(intStopBracket, "})");
+
+                                f_strExpression = f_strExpression.Remove(int1, 1);
+                                f_strExpression = f_strExpression.Insert(int1, "]{");
+                            }
+                            else
+                            {
+                                f_strExpression = f_strExpression.Insert(int1, "]{})");
+                            }
                         }
                         else
                         {
-                            f_strExpression = f_strExpression.Insert(int1 + 1, ")");
+                            f_strExpression = f_strExpression.Insert(int1, "]{})");
                         }
                     }
                 }
@@ -307,38 +281,39 @@ namespace Temporary1
             //Обработка конца строки.
             if (booControlNameFunction == true) //Если мы в тексте.
             {
-                f_strExpression = f_strExpression + "])";
+                f_strExpression = f_strExpression + "]{})";
             }
         }
 
 
         static void F_voiFunctionControlFuture(ref string f_strExpression) //Пересмотреть по поводу -3.
         {
-            bool booError = false; //booError затенен (просто другого варианта у него нет).
+            bool booResult = false; //booResult затенен (просто другого варианта у него нет).
             int intStopBracket = 0;
 
-            for (int int1 = 1; int1 <= f_strExpression.Length - 2; int1++)
+            for (int int1 = 1; int1 <= f_strExpression.Length - 2; int1++) //от 1 до -2 т.к. проверяем )/(.
             {
                 if (f_strExpression[int1] == '/')
                 {
                     if (f_strExpression[int1-1] == ')' && f_strExpression[int1+1] == '(')
                     {
                         f_strExpression = f_strExpression.Remove(int1, 1);
-                        f_strExpression = f_strExpression.Insert(int1, ",");
+                        f_strExpression = f_strExpression.Insert(int1, ".");
 
-                        booError = false;
+                        booResult = false;
                         intStopBracket = 0;
 
-                        booError = F_booRightBracketPosition(f_strExpression, int1, ref intStopBracket);
-                        if (booError == false)
+                        booResult = F_booRightBracketPosition(f_strExpression, int1, ref intStopBracket);
+                        if (booResult == true)
                         {
-                            f_strExpression = f_strExpression.Insert(intStopBracket, "))");
+                            f_strExpression = f_strExpression.Remove(intStopBracket, 1);
+                            f_strExpression = f_strExpression.Insert(intStopBracket, ")})");
                         }
 
-                        booError = F_booLeftBracketPosition(f_strExpression, int1, ref intStopBracket);
-                        if (booError == false)
+                        booResult = F_booLeftBracketPosition(f_strExpression, int1, ref intStopBracket);
+                        if (booResult == true)
                         {
-                            f_strExpression = f_strExpression.Insert(intStopBracket, "([Division](");
+                            f_strExpression = f_strExpression.Insert(intStopBracket, "([Division]{");
                         }
                     }
                 }
@@ -347,21 +322,22 @@ namespace Temporary1
                     if (f_strExpression[int1 - 1] == ')' && f_strExpression[int1 + 1] == '(')
                     {
                         f_strExpression = f_strExpression.Remove(int1, 1);
-                        f_strExpression = f_strExpression.Insert(int1, ",");
+                        f_strExpression = f_strExpression.Insert(int1, ".");
 
-                        booError = false;
+                        booResult = false;
                         intStopBracket = 0;
 
-                        booError = F_booRightBracketPosition(f_strExpression, int1, ref intStopBracket);
-                        if (booError == false)
+                        booResult = F_booRightBracketPosition(f_strExpression, int1, ref intStopBracket);
+                        if (booResult == true)
                         {
-                            f_strExpression = f_strExpression.Insert(intStopBracket, "))");
+                            f_strExpression = f_strExpression.Remove(intStopBracket, 1);
+                            f_strExpression = f_strExpression.Insert(intStopBracket, ")})");
                         }
 
-                        booError = F_booLeftBracketPosition(f_strExpression, int1, ref intStopBracket);
-                        if (booError == false)
+                        booResult = F_booLeftBracketPosition(f_strExpression, int1, ref intStopBracket);
+                        if (booResult == true)
                         {
-                            f_strExpression = f_strExpression.Insert(intStopBracket, "([Multiplication](");
+                            f_strExpression = f_strExpression.Insert(intStopBracket, "([Multiplication]{");
                         }
                     }
                 }
@@ -373,21 +349,22 @@ namespace Temporary1
                     if (f_strExpression[int1 - 1] == ')' && f_strExpression[int1 + 1] == '(')
                     {
                         f_strExpression = f_strExpression.Remove(int1, 1);
-                        f_strExpression = f_strExpression.Insert(int1, ",");
+                        f_strExpression = f_strExpression.Insert(int1, ".");
 
-                        booError = false;
+                        booResult = false;
                         intStopBracket = 0;
 
-                        booError = F_booRightBracketPosition(f_strExpression, int1, ref intStopBracket);
-                        if (booError == false)
+                        booResult = F_booRightBracketPosition(f_strExpression, int1, ref intStopBracket);
+                        if (booResult == true)
                         {
-                            f_strExpression = f_strExpression.Insert(intStopBracket, "))");
+                            f_strExpression = f_strExpression.Remove(intStopBracket, 1);
+                            f_strExpression = f_strExpression.Insert(intStopBracket, ")})");
                         }
 
-                        booError = F_booLeftBracketPosition(f_strExpression, int1, ref intStopBracket);
-                        if (booError == false)
+                        booResult = F_booLeftBracketPosition(f_strExpression, int1, ref intStopBracket);
+                        if (booResult == true)
                         {
-                            f_strExpression = f_strExpression.Insert(intStopBracket, "([Addition](");
+                            f_strExpression = f_strExpression.Insert(intStopBracket, "([Addition]{");
                         }
                     }
                 }
@@ -395,22 +372,23 @@ namespace Temporary1
                 {
                     if (f_strExpression[int1 - 1] == ')' && f_strExpression[int1 + 1] == '(')
                     {
-                        f_strExpression = f_strExpression.Remove(int1, 1);
-                        f_strExpression = f_strExpression.Insert(int1, ",");
+                        f_strExpression = f_strExpression.Remove(int1, 1); //Удаляем -
+                        f_strExpression = f_strExpression.Insert(int1, "."); //Заменяем - на ,
 
-                        booError = false;
+                        booResult = false;
                         intStopBracket = 0;
 
-                        booError = F_booRightBracketPosition(f_strExpression, int1, ref intStopBracket);
-                        if (booError == false)
+                        booResult = F_booRightBracketPosition(f_strExpression, int1, ref intStopBracket);
+                        if (booResult == true)
                         {
-                            f_strExpression = f_strExpression.Insert(intStopBracket, "))");
+                            f_strExpression = f_strExpression.Remove(intStopBracket, 1);
+                            f_strExpression = f_strExpression.Insert(intStopBracket, ")})");
                         }
 
-                        booError = F_booLeftBracketPosition(f_strExpression, int1, ref intStopBracket);
-                        if (booError == false)
+                        booResult = F_booLeftBracketPosition(f_strExpression, int1, ref intStopBracket);
+                        if (booResult == true)
                         {
-                            f_strExpression = f_strExpression.Insert(intStopBracket, "([Subtraction](");
+                            f_strExpression = f_strExpression.Insert(intStopBracket, "([Subtraction]{");
                         }
                     }
                 }
@@ -442,10 +420,10 @@ namespace Temporary1
                 if (booControlBracket == true && intCountBracket == 0)
                 {
                     f_intStopBracket = int1;
-                    return (false);
+                    return (true); //Ошибок нет.
                 }
             }
-            return (true);
+            return (false); //Метод закончен с ошибками.
         }
 
 
@@ -473,11 +451,64 @@ namespace Temporary1
                 if (booControlBracket == true && intCountBracket == 0)
                 {
                     f_intStopBracket = int1;
-                    return (false);
+                    return (true); //Ошибок нет.
                 }
             }
-            return (true);
+            return (false); //Метод закончен с ошибками.
         }
+        
+        
+        static bool F_booCalculationOfSimpleFunctions(ref string f_strExpression)
+        {
+            string strExpression = f_strExpression;
+
+            bool booResult = false;
+            int intStartBracket = 0;
+            int intStopBracket = 0;
+            string strFunction = null;
+            double dblNumber = 0.0;
+            string strTransformedFunction = null;
+
+            for (int int1 = 0; int1 <= strExpression.Length - 1; int1++)
+            {
+                if (strExpression[int1] == '(')
+                {
+                    intStartBracket = int1;
+                    intStopBracket = 0;
+
+                    booResult = F_booRightBracketPosition(strExpression, intStartBracket, ref intStopBracket);
+
+
+
+                    if (booResult == true)
+                    {
+                        strFunction = strExpression.Substring(intStartBracket + 1, intStopBracket - intStartBracket - 1); //Берем кусок текста без скобок.
+                        
+                        booResult = double.TryParse(strFunction, out dblNumber);
+                        if (booResult == true)
+                        {
+                            strTransformedFunction = Convert.ToString(dblNumber);
+                            strFunction = "(" + strFunction + ")";
+                            strExpression = strExpression.Replace(strFunction, strTransformedFunction);
+                        }
+                    }
+                }
+            }
+
+            if (f_strExpression != strExpression)
+            {
+                f_strExpression = strExpression;
+                return (true);
+            }
+            else
+            {
+                return (false);
+            }
+        }
+
+
+
+
 
 
     }
