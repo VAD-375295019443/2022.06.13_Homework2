@@ -20,9 +20,11 @@ namespace Calculator
                 }
 
 
-
+                //------------------------------------------------------------------------------
                 strExpression = strExpression.Replace(" ", ""); //Удаляем все пробелы.
 
+
+                //------------------------------------------------------------------------------
                 if (strExpression == "") //Если после удаления пробелов строка пустая, то error.
                 {
                     Console.WriteLine("Вы не ввели значение.");
@@ -31,7 +33,7 @@ namespace Calculator
                 //Какой-то значимый текст точно введен, потому далее.
 
 
-
+                //------------------------------------------------------------------------------
                 for (int int1 = 0; int1 <= strExpression.Length - 1; int1++)
                 {
                     if (strExpression[int1] == '.')
@@ -47,7 +49,7 @@ namespace Calculator
                 }
 
 
-
+                //------------------------------------------------------------------------------
                 //Проверяем на наличие скобок, которые в дальнейшем будут определять методы, и знака = (т.е. изначально быть скобок и знака = не должно).
                 if (strExpression.Contains("[") == true || strExpression.Contains("]") == true || strExpression.Contains("{") == true || strExpression.Contains("}") == true || strExpression.Contains("=") == true)
                 {
@@ -55,52 +57,9 @@ namespace Calculator
                     Console.WriteLine("");
                     continue;
                 }
-
-                /*
+                
+                
                 //------------------------------------------------------------------------------
-                //Проверяем круглые скобки на парность.
-                int intControlParentheses = 0; //Скобок 0.
-
-                for (int int1 = 0; int1 <= strExpression.Length - 1; int1++)
-                {
-                    if (strExpression[int1] == '(')
-                    {
-                        intControlParentheses++;
-                    }
-                    else if (strExpression[int1] == ')')
-                    {
-                        intControlParentheses--;
-                    }
-
-                    if (intControlParentheses < 0)
-                    {
-                        Console.WriteLine("Вы ввели не корректные данные.");
-                        Console.WriteLine("");
-                        break;
-                    }
-                }
-
-                if (intControlParentheses < 0)
-                {
-                    continue;
-                }
-
-                if (intControlParentheses > 0)
-                {
-                    Console.WriteLine("Вы ввели не корректные данные.");
-                    Console.WriteLine("");
-                    continue;
-                }
-                */
-
-                //------------------------------------------------------------------------------
-                //------------------------------------------------------------------------------
-                //------------------------------------------------------------------------------
-                //------------------------------------------------------------------------------
-
-
-
-
                 F_voiFunctionControlNumber(ref strExpression); //Выполняем поиск чисел.
 
 
@@ -125,54 +84,34 @@ namespace Calculator
                 F_voiFunctionControlFuture(ref strExpression); //Создаем функции /, *, +,-.
 
 
+                //В этом блоке РЕШАЕМ все функции.
                 bool booControlCalculationOfSimpleFunctions = true;
+                bool booControlCalculationOfComplexFunctions = true;
                 while (booControlCalculationOfSimpleFunctions == true)
                 {
                     booControlCalculationOfSimpleFunctions = F_booCalculationOfSimpleFunctions(ref strExpression); //Преобразование простых функций.
+                    booControlCalculationOfComplexFunctions = F_booCalculationOfComplexFunctions(ref strExpression); //Преобразование сложных функций.
                 }
 
 
-
-
-
-                bool booControlCalculationOfComplexFunctions = true;
-                //while (booControlCalculationOfComplexFunctions == true)
-                //{
-                booControlCalculationOfComplexFunctions = F_booCalculationOfComplexFunctions(ref strExpression); //Преобразование сложных функций.
-                //}
-
-
-
-
-
-
-
-
-
-
-
-                Console.WriteLine(strExpression);
-                Console.WriteLine("");
-
-
-                /*
-                string xx = Console.ReadLine();
-                bool z = false;
-                double zz;
-                z = double.TryParse(xx, out zz);
                 
-                Console.WriteLine(zz);
-                */
+                bool booControl = false;
+                double dblExpression = 0;
+                booControl = double.TryParse(strExpression, out dblExpression);
+                if (booControl == false)
+                {
+                    Console.WriteLine("Вы ввели не корректные данные.");
+                    Console.WriteLine("");
+                    continue;
+                }
+                else
+                {
+                    Console.WriteLine(strExpression);
+                    Console.WriteLine("");
+
+                }
             }
         }
-
-
-
-
-
-
-
-
 
 
         static void F_voiFunctionControlNumber(ref string f_strExpression)
@@ -516,7 +455,7 @@ namespace Calculator
         }
 
 
-        static bool F_booCalculationOfComplexFunctions(ref string f_strExpression)
+        static bool F_booCalculationOfComplexFunctions(ref string f_strExpression) //Выаделяем из функции имя и тело.
         {
             string strExpression = f_strExpression;
 
@@ -527,6 +466,8 @@ namespace Calculator
             string? strFunctionBody = null;
             bool booControlFunctionName = false;
             bool booControlFunctionBody = false;
+
+            string? strFunctionResult = null;
 
             for (int int1 = 0; int1 <= strExpression.Length - 1; int1++)
             {
@@ -576,10 +517,18 @@ namespace Calculator
                     }
                 }
 
-
+                
 
                 if (booControlFunctionName = true && booControlFunctionBody == true)
                 {
+                    bool booControl = false;
+
+                    booControl = F_booCalculationFunction(strFunctionName, strFunctionBody, ref strFunctionResult);
+
+                    if (booControl == true)
+                    {
+                        strExpression = strExpression.Replace("[" + strFunctionName + "]{" + strFunctionBody + "}", strFunctionResult);
+                    }
 
 
 
@@ -594,12 +543,14 @@ namespace Calculator
 
 
 
-
+                /*
                 if (booControlFunctionName = true && booControlFunctionBody == true)
                 {
                     Console.WriteLine(strFunctionName);
                     Console.WriteLine(strFunctionBody);
                 }
+                */
+
             }
 
             if (f_strExpression != strExpression)
@@ -613,32 +564,75 @@ namespace Calculator
             }
         }
 
-
-
-
-
-
-        static bool F_booCalculationFunction(in string f_strFunctionName, in string f_strFunctionBody, ref string f_strFunction)
+        
+        static bool F_booCalculationFunction(in string f_strFunctionName, in string f_strFunctionBody, ref string f_strFunctionResult) //Решаем функцию.
         {
-            if (f_strFunctionName == "Addition")
-            {
+            bool booControl = false;
+            double[] arrdblParameter = new double[0];
+            double dblFunctionResult = 0;
 
+            if (f_strFunctionName == "Addition") //(double, double): возвращает сумму двух чисел. 
+            {
+                booControl = F_booCalculationParameter(f_strFunctionBody, 2, ref arrdblParameter);
+                if (booControl == false) //Если НЕ получилось преобразовать f_strFunctionBody в массив параметров.
+                {
+                    return (false);
+                }
+
+                dblFunctionResult = arrdblParameter[0] + arrdblParameter[1]; //Если получилось, то проводим расчеты.
+
+                f_strFunctionResult = Convert.ToString(dblFunctionResult); //Конвертируем в строку и отправляем в f_strFunctionResult
+
+                return (true);
             }
             else if (f_strFunctionName == "Subtraction")
             {
+                booControl = F_booCalculationParameter(f_strFunctionBody, 2, ref arrdblParameter);
+                if (booControl == false) //Если НЕ получилось преобразовать f_strFunctionBody в массив параметров.
+                {
+                    return (false);
+                }
 
-            }
-            else if (f_strFunctionName == "Division")
-            {
+                dblFunctionResult = arrdblParameter[0] - arrdblParameter[1]; //Если получилось, то проводим расчеты.
 
+                f_strFunctionResult = Convert.ToString(dblFunctionResult); //Конвертируем в строку и отправляем в f_strFunctionResult
 
-
-
-
-
+                return (true);
             }
             else if (f_strFunctionName == "Multiplication")
             {
+                booControl = F_booCalculationParameter(f_strFunctionBody, 2, ref arrdblParameter);
+                if (booControl == false) //Если НЕ получилось преобразовать f_strFunctionBody в массив параметров.
+                {
+                    return (false);
+                }
+
+                dblFunctionResult = arrdblParameter[0] * arrdblParameter[1]; //Если получилось, то проводим расчеты.
+
+                f_strFunctionResult = Convert.ToString(dblFunctionResult); //Конвертируем в строку и отправляем в f_strFunctionResult
+
+                return (true);
+            }
+            else if (f_strFunctionName == "Division")
+            {
+                booControl = F_booCalculationParameter(f_strFunctionBody, 2, ref arrdblParameter);
+                if (booControl == false) //Если НЕ получилось преобразовать f_strFunctionBody в массив параметров.
+                {
+                    return (false);
+                }
+
+                dblFunctionResult = arrdblParameter[0] / arrdblParameter[1]; //Если получилось, то проводим расчеты.
+
+                f_strFunctionResult = Convert.ToString(dblFunctionResult); //Конвертируем в строку и отправляем в f_strFunctionResult
+
+                return (true);
+
+
+
+
+
+
+
 
 
 
@@ -690,13 +684,48 @@ namespace Calculator
 
 
             }
-            
-            return (true);
+            return (false);
         }
+        
 
+        static bool F_booCalculationParameter(in string f_strFunctionBody, in int f_intCountParameter, ref double[] f_arrdblParameter)
+        {
+            string[]? arrstrParameter = new string[1];
+            
+            if (f_strFunctionBody.Length > 0)
+            {
+                for (int int1 = 0; int1 <= f_strFunctionBody.Length - 1; int1++)
+                {
+                    if (f_strFunctionBody[int1] == '.')
+                    {
+                        Array.Resize(ref arrstrParameter, arrstrParameter.Length + 1);
+                    }
+                    else
+                    {
+                        arrstrParameter[arrstrParameter.Length - 1] = arrstrParameter[arrstrParameter.Length - 1] + f_strFunctionBody[int1];
+                    }
+                }
+            }
+            
+            bool booControl = false;
+            
+            if (arrstrParameter.Length != f_intCountParameter)
+            {
+                return (false);
+            }
 
+            f_arrdblParameter = new double[arrstrParameter.Length];
 
+            for (int int1 = 0; int1 <= arrstrParameter.Length - 1; int1++)
+            {
+                booControl = double.TryParse(arrstrParameter[int1], out f_arrdblParameter[int1]);
 
-
+                if (booControl == false)
+                {
+                    return (false);
+                }
+            }
+            return (true);
+        } //Создаем double массив параметров.
     }
 }
