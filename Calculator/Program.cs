@@ -655,56 +655,234 @@ namespace Calculator
                 f_strFunctionResult = Convert.ToString(dblFunctionResult); //Конвертируем в строку и отправляем в f_strFunctionResult
 
                 return (true);
+            }
+            else if (f_strFunctionName == "Abs") //(double value): возвращает абсолютное значение для аргумента value
+            {
+                booControl = F_booCalculationParameter(f_strFunctionBody, 1, ref arrdblParameter);
+                if (booControl == false) //Если НЕ получилось преобразовать f_strFunctionBody в массив параметров.
+                {
+                    return (false);
+                }
 
+                dblFunctionResult = Math.Abs(arrdblParameter[0]); //Если получилось, то проводим расчеты.
 
+                f_strFunctionResult = Convert.ToString(dblFunctionResult); //Конвертируем в строку и отправляем в f_strFunctionResult
 
+                return (true);
+            }
+            else if (f_strFunctionName == "Acos") //(double value): возвращает арккосинус value. Параметр value должен иметь значение от -1 до 1
+            {
+                booControl = F_booCalculationParameter(f_strFunctionBody, 1, ref arrdblParameter);
+                if (booControl == false || arrdblParameter[0]<(-1) || arrdblParameter[0]>1) //Если НЕ получилось преобразовать f_strFunctionBody в массив параметров.
+                {
+                    return (false);
+                }
 
+                dblFunctionResult = Math.Acos(arrdblParameter[0]); //Если получилось, то проводим расчеты.
 
+                f_strFunctionResult = Convert.ToString(dblFunctionResult); //Конвертируем в строку и отправляем в f_strFunctionResult
 
+                return (true);
+            }
+            else if (f_strFunctionName == "Asin") //(double value): возвращает арксинус value.Параметр value должен иметь значение от -1 до 1
+            {
+                booControl = F_booCalculationParameter(f_strFunctionBody, 1, ref arrdblParameter);
+                if (booControl == false || arrdblParameter[0] < (-1) || arrdblParameter[0] > 1) //Если НЕ получилось преобразовать f_strFunctionBody в массив параметров.
+                {
+                    return (false);
+                }
 
+                dblFunctionResult = Math.Asin(arrdblParameter[0]); //Если получилось, то проводим расчеты.
 
+                f_strFunctionResult = Convert.ToString(dblFunctionResult); //Конвертируем в строку и отправляем в f_strFunctionResult
 
+                return (true);
+            }
+            else if (f_strFunctionName == "Atan") //(double value): возвращает арктангенс value
+            {
+                booControl = F_booCalculationParameter(f_strFunctionBody, 1, ref arrdblParameter);
+                if (booControl == false) //Если НЕ получилось преобразовать f_strFunctionBody в массив параметров.
+                {
+                    return (false);
+                }
 
+                dblFunctionResult = Math.Atan(arrdblParameter[0]); //Если получилось, то проводим расчеты.
 
+                f_strFunctionResult = Convert.ToString(dblFunctionResult); //Конвертируем в строку и отправляем в f_strFunctionResult
 
+                return (true);
+            }
+            else if (f_strFunctionName == "Cos") //(double d): возвращает косинус угла d
+            {
+                booControl = F_booCalculationParameter(f_strFunctionBody, 1, ref arrdblParameter);
+                if (booControl == false) //Если НЕ получилось преобразовать f_strFunctionBody в массив параметров.
+                {
+                    return (false);
+                }
 
+                dblFunctionResult = Math.Cos(arrdblParameter[0]); //Если получилось, то проводим расчеты.
 
-                /*
+                f_strFunctionResult = Convert.ToString(dblFunctionResult); //Конвертируем в строку и отправляем в f_strFunctionResult
 
-                Abs(double value): возвращает абсолютное значение для аргумента value
+                return (true);
+            }
+            else if (f_strFunctionName == "Cosh") //(double d): возвращает гиперболический косинус угла d
+            {
+                booControl = F_booCalculationParameter(f_strFunctionBody, 1, ref arrdblParameter);
+                if (booControl == false) //Если НЕ получилось преобразовать f_strFunctionBody в массив параметров.
+                {
+                    return (false);
+                }
 
-                Acos(double value): возвращает арккосинус value.Параметр value должен иметь значение от -1 до 1
+                dblFunctionResult = Math.Cosh(arrdblParameter[0]); //Если получилось, то проводим расчеты.
 
-                Asin(double value): возвращает арксинус value.Параметр value должен иметь значение от -1 до 1
+                f_strFunctionResult = Convert.ToString(dblFunctionResult); //Конвертируем в строку и отправляем в f_strFunctionResult
 
-                Atan(double value): возвращает арктангенс value
+                return (true);
+            }
+            else if (f_strFunctionName == "Exp") //(double d): возвращает основание натурального логарифма, возведенное в степень d
+            {
+                booControl = F_booCalculationParameter(f_strFunctionBody, 1, ref arrdblParameter);
+                if (booControl == false) //Если НЕ получилось преобразовать f_strFunctionBody в массив параметров.
+                {
+                    return (false);
+                }
 
-                Cos(double d): возвращает косинус угла d
+                dblFunctionResult = Math.Exp(arrdblParameter[0]); //Если получилось, то проводим расчеты.
 
-                Cosh(double d): возвращает гиперболический косинус угла d
+                f_strFunctionResult = Convert.ToString(dblFunctionResult); //Конвертируем в строку и отправляем в f_strFunctionResult
 
-                Exp(double d): возвращает основание натурального логарифма, возведенное в степень d
+                return (true);
+            }
+            else if (f_strFunctionName == "Log") //(double d): возвращает натуральный логарифм числа d
+            {
+                booControl = F_booCalculationParameter(f_strFunctionBody, 1, ref arrdblParameter);
+                if (booControl == false) //Если НЕ получилось преобразовать f_strFunctionBody в массив параметров.
+                {
+                    return (false);
+                }
 
-                Log(double d): возвращает натуральный логарифм числа d
+                dblFunctionResult = Math.Log(arrdblParameter[0]); //Если получилось, то проводим расчеты.
 
-                Log(double a, double newBase): возвращает логарифм числа a по основанию newBase
+                f_strFunctionResult = Convert.ToString(dblFunctionResult); //Конвертируем в строку и отправляем в f_strFunctionResult
 
-                Log10(double d): возвращает десятичный логарифм числа d
+                return (true);
+            }
+            else if (f_strFunctionName == "Log") //(double a, double newBase): возвращает логарифм числа a по основанию newBase
+            {
+                booControl = F_booCalculationParameter(f_strFunctionBody, 2, ref arrdblParameter);
+                if (booControl == false) //Если НЕ получилось преобразовать f_strFunctionBody в массив параметров.
+                {
+                    return (false);
+                }
 
-                Pow(double a, double b): возвращает число a, возведенное в степень b
+                dblFunctionResult = Math.Log(arrdblParameter[0], arrdblParameter[1]); //Если получилось, то проводим расчеты.
 
-                Round(double d): возвращает число d, округленное до ближайшего целого числа
+                f_strFunctionResult = Convert.ToString(dblFunctionResult); //Конвертируем в строку и отправляем в f_strFunctionResult
 
-                Sin(double value): возвращает синус угла value
+                return (true);
+            }
+            else if (f_strFunctionName == "Log10") //(double d): возвращает десятичный логарифм числа d
+            {
+                booControl = F_booCalculationParameter(f_strFunctionBody, 1, ref arrdblParameter);
+                if (booControl == false) //Если НЕ получилось преобразовать f_strFunctionBody в массив параметров.
+                {
+                    return (false);
+                }
 
-                Sqrt(double value): возвращает квадратный корень числа value
+                dblFunctionResult = Math.Log10(arrdblParameter[0]); //Если получилось, то проводим расчеты.
 
-                Tan(double value): возвращает тангенс угла value
+                f_strFunctionResult = Convert.ToString(dblFunctionResult); //Конвертируем в строку и отправляем в f_strFunctionResult
 
-                !(int value): возвращает факториал числа value
-                */
+                return (true);
+            }
+            else if (f_strFunctionName == "Pow") //(double a, double b): возвращает число a, возведенное в степень b
+            {
+                booControl = F_booCalculationParameter(f_strFunctionBody, 2, ref arrdblParameter);
+                if (booControl == false) //Если НЕ получилось преобразовать f_strFunctionBody в массив параметров.
+                {
+                    return (false);
+                }
 
+                dblFunctionResult = Math.Log(arrdblParameter[0], arrdblParameter[1]); //Если получилось, то проводим расчеты.
 
+                f_strFunctionResult = Convert.ToString(dblFunctionResult); //Конвертируем в строку и отправляем в f_strFunctionResult
+
+                return (true);
+            }
+            else if (f_strFunctionName == "Round") //(double d): возвращает число d, округленное до ближайшего целого числа
+            {
+                booControl = F_booCalculationParameter(f_strFunctionBody, 1, ref arrdblParameter);
+                if (booControl == false) //Если НЕ получилось преобразовать f_strFunctionBody в массив параметров.
+                {
+                    return (false);
+                }
+
+                dblFunctionResult = Math.Round(arrdblParameter[0]); //Если получилось, то проводим расчеты.
+
+                f_strFunctionResult = Convert.ToString(dblFunctionResult); //Конвертируем в строку и отправляем в f_strFunctionResult
+
+                return (true);
+            }
+            else if (f_strFunctionName == "Sin") //(double value): возвращает синус угла value
+            {
+                booControl = F_booCalculationParameter(f_strFunctionBody, 1, ref arrdblParameter);
+                if (booControl == false) //Если НЕ получилось преобразовать f_strFunctionBody в массив параметров.
+                {
+                    return (false);
+                }
+
+                dblFunctionResult = Math.Sin(arrdblParameter[0]); //Если получилось, то проводим расчеты.
+
+                f_strFunctionResult = Convert.ToString(dblFunctionResult); //Конвертируем в строку и отправляем в f_strFunctionResult
+
+                return (true);
+            }
+            else if (f_strFunctionName == "Sqrt") //(double value): возвращает квадратный корень числа value
+            {
+                booControl = F_booCalculationParameter(f_strFunctionBody, 1, ref arrdblParameter);
+                if (booControl == false) //Если НЕ получилось преобразовать f_strFunctionBody в массив параметров.
+                {
+                    return (false);
+                }
+
+                dblFunctionResult = Math.Sqrt(arrdblParameter[0]); //Если получилось, то проводим расчеты.
+
+                f_strFunctionResult = Convert.ToString(dblFunctionResult); //Конвертируем в строку и отправляем в f_strFunctionResult
+
+                return (true);
+            }
+            else if (f_strFunctionName == "Tan") //(double value): возвращает тангенс угла value
+            {
+                booControl = F_booCalculationParameter(f_strFunctionBody, 1, ref arrdblParameter);
+                if (booControl == false) //Если НЕ получилось преобразовать f_strFunctionBody в массив параметров.
+                {
+                    return (false);
+                }
+
+                dblFunctionResult = Math.Tan(arrdblParameter[0]); //Если получилось, то проводим расчеты.
+
+                f_strFunctionResult = Convert.ToString(dblFunctionResult); //Конвертируем в строку и отправляем в f_strFunctionResult
+
+                return (true);
+            }
+            else if (f_strFunctionName == "!") //(int value): возвращает факториал числа value
+            {
+                booControl = F_booCalculationParameter(f_strFunctionBody, 1, ref arrdblParameter);
+                if (booControl == false || arrdblParameter[0]<=0 || (int)arrdblParameter[0]!= arrdblParameter[0]) //Если НЕ получилось преобразовать f_strFunctionBody в массив параметров.
+                {
+                    return (false);
+                }
+
+                dblFunctionResult = 1; //Если получилось, то проводим расчеты.
+                for (int int1=1; int1<= arrdblParameter[0]; int1++)
+                {
+                    dblFunctionResult = dblFunctionResult * int1;
+                }
+
+                f_strFunctionResult = Convert.ToString(dblFunctionResult); //Конвертируем в строку и отправляем в f_strFunctionResult
+
+                return (true);
             }
             return (false);
         }
