@@ -138,7 +138,7 @@ namespace Calculator
                 bool booControlCalculationOfComplexFunctions = true;
                 //while (booControlCalculationOfComplexFunctions == true)
                 //{
-                    booControlCalculationOfComplexFunctions = F_booCalculationOfComplexFunctions(ref strExpression); //Преобразование сложных функций.
+                booControlCalculationOfComplexFunctions = F_booCalculationOfComplexFunctions(ref strExpression); //Преобразование сложных функций.
                 //}
 
 
@@ -177,8 +177,9 @@ namespace Calculator
             int intStartBracket = 0;
             int intStopBracket = 0;
 
-            string ?strFunctionName = null;
-            string ?strFunctionBody = null;
+            string? strFunctionName = null;
+            string? strFunctionBody = null;
+            bool booControlFunctionName = false;
             bool booControlFunctionBody = false;
 
             int intCountBracket = 0;
@@ -198,83 +199,72 @@ namespace Calculator
 
             for (int int1 = 0; int1 <= strExpression.Length - 1; int1++)
             {
+                strFunctionName = null;
+                booControlFunctionName = false;
+
+                strFunctionBody = null;
+                booControlFunctionBody = false;
+
                 if (strExpression[int1] == '[') //Блок поиска [] скобок.
                 {
-                    for (int int2 = int1; int2 <= strExpression.Length - 1; int2++)
+                    intStartBracket = int1;
+
+                    for (int int2 = int1+1; int2 <= strExpression.Length - 1; int2++)
                     {
                         if (strExpression[int2] == ']')
                         {
-                            intStartBracket = int1;
                             intStopBracket = int2;
                             strFunctionName = strExpression.Substring(intStartBracket + 1, intStopBracket - intStartBracket - 1); //Врезаем имя функции. Берем кусок текста без скобок.
+                            booControlFunctionName = true;
                             break;
                         }
                     }
 
-                    //Блок поиска {} скобок.
-                    booControlFunctionBody = false;
-                    intCountBracket = 0;
-
-                    for (int int2 = int1; int2 <= strExpression.Length - 1; int2++)
+                    for (int int2 = int1+1; int2 <= strExpression.Length - 1; int2++)
                     {
                         if (strExpression[int2] == '{')
                         {
-                            intCountBracket++;
+                            intStartBracket = int2;
 
-                            if (intCountBracket == 1)
+                            for (int int3 = int2+1; int3 <= strExpression.Length - 1; int3++)
                             {
-                                intStartBracket = int2;
+                                if (strExpression[int3] == '}')
+                                {
+                                    intStopBracket = int3;
+                                    strFunctionBody = strExpression.Substring(intStartBracket + 1, intStopBracket - intStartBracket - 1); //Врезаем имя функции. Берем кусок текста без скобок.
+                                    booControlFunctionBody = true;
+                                    break;
+                                }
+                                else if (strExpression[int3] == '{')
+                                {
+                                    break;
+                                }
                             }
-                            else if(intCountBracket > 1)
-                            {
-                                booControlFunctionBody = false;
-                                break;
-                            }
-                        }
-                        else if (strExpression[int2] == '}')
-                        {
-                            intCountBracket--;
-
-                            if (intCountBracket == 0)
-                            {
-                                intStopBracket = int2;
-                                strFunctionBody = strExpression.Substring(intStartBracket + 1, intStopBracket - intStartBracket - 1); //Врезаем тело функции. Берем кусок текста без скобок.
-                                
-                                booControlFunctionBody = true;
-                                break;
-                            }
+                            break;
                         }
                     }
                 }
+
+
+                ///////Обработка имени и тела функции.
+
                 
                 
                 
                 
                 
-                Console.WriteLine(strFunctionName);
-                Console.WriteLine(strFunctionBody);
-                break;
+                
+                
+                
+                
+                if (booControlFunctionName = true && booControlFunctionBody == true)
+                {
+                    Console.WriteLine(strFunctionName);
+                    Console.WriteLine(strFunctionBody);
+                }
 
 
 
-                /*
-                booResult = F_booRightBracketPosition(strExpression, intStartBracket, ref intStopBracket);
-
-
-
-                    if (booResult == true)
-                    {
-                        strNumber = strExpression.Substring(intStartBracket + 1, intStopBracket - intStartBracket - 1); //Берем кусок текста без скобок.
-
-                        booResult = double.TryParse(strNumber, out dblNumber);
-                        if (booResult == true)
-                        {
-                            strTransformedFunction = Convert.ToString(dblNumber);
-                            strNumber = "(" + strNumber + ")";
-                            strExpression = strExpression.Replace(strNumber, strTransformedFunction);
-                        }
-                    }
-                */
 
             }
 
@@ -287,10 +277,8 @@ namespace Calculator
             {
                 return (false);
             }
-
-
-
         }
+
 
 
 
