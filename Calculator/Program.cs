@@ -6,7 +6,9 @@ namespace Calculator
     {
         static void Main(string[] args)
         {
-            
+            Console.WriteLine("Вашему вниманию предлагается калькулятор, выполняющий расчеты строки вида:");
+            Console.WriteLine("2*3+(18-12)/4+!(5)*Pow(2.3, 4) и т.д. (Для получения результата нажмите ENTER).");
+            Console.WriteLine("");
             Console.WriteLine("Вы имеете в асенале следующие операторы и функции:");
             Console.WriteLine("+: оператор сложения.");
             Console.WriteLine("-: оператор вычитания.");
