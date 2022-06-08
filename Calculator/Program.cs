@@ -6,11 +6,38 @@ namespace Calculator
     {
         static void Main(string[] args)
         {
+            
+            Console.WriteLine("Вы имеете в асенале следующие операторы и функции:");
+            Console.WriteLine("+: оператор сложения.");
+            Console.WriteLine("-: оператор вычитания.");
+            Console.WriteLine("*: оператор умножения.");
+            Console.WriteLine("/: оператор деления.");
+            Console.WriteLine("Abs(double value): возвращает абсолютное значение для аргумента value.");
+            Console.WriteLine("Acos(double value): возвращает арккосинус value.Параметр value должен иметь значение от -1 до 1.");
+            Console.WriteLine("Asin(double value): возвращает арксинус value.Параметр value должен иметь значение от -1 до 1.");
+            Console.WriteLine("Atan(double value): возвращает арктангенс value.");
+            Console.WriteLine("Cos(double d): возвращает косинус угла d.");
+            Console.WriteLine("Cosh(double d): возвращает гиперболический косинус угла d.");
+            Console.WriteLine("Exp(double d): возвращает основание натурального логарифма, возведенное в степень d.");
+            Console.WriteLine("Log(double d): возвращает натуральный логарифм числа d.");
+            Console.WriteLine("Log(double a, double newBase): возвращает логарифм числа a по основанию newBase.");
+            Console.WriteLine("Log10(double d): возвращает десятичный логарифм числа d.");
+            Console.WriteLine("Pow(double a, double b): возвращает число a, возведенное в степень b.");
+            Console.WriteLine("Round(double d): возвращает число d, округленное до ближайшего целого числа.");
+            Console.WriteLine("Sin(double value): возвращает синус угла value.");
+            Console.WriteLine("Sqrt(double value): возвращает квадратный корень числа value.");
+            Console.WriteLine("Tan(double value): возвращает тангенс угла value.");
+            Console.WriteLine("!(int value): возвращает факториал числа value.");
+            Console.WriteLine("");
+            
             string? strExpression = null;
 
             while (1 == 1)
             {
                 Console.WriteLine("Введите выражение. Для выхода нажмите: Exit.");
+                Console.WriteLine("");
+
+
                 strExpression = Console.ReadLine();
 
                 if (strExpression == "Exit" || strExpression == "exit")
@@ -641,13 +668,6 @@ namespace Calculator
 
 
                 /*
-                +
-
-                -
-
-                *
-
-                /
 
                 Abs(double value): возвращает абсолютное значение для аргумента value
 
