@@ -19,6 +19,8 @@ namespace Calculator
                     break;
                 }
 
+
+
                 strExpression = strExpression.Replace(" ", ""); //Удаляем все пробелы.
 
                 if (strExpression == "") //Если после удаления пробелов строка пустая, то error.
@@ -28,8 +30,6 @@ namespace Calculator
                 }
                 //Какой-то значимый текст точно введен, потому далее.
 
-
-//!!!!!!!!!!!!!!!!!!!!!!!!
 
 
                 for (int int1 = 0; int1 <= strExpression.Length - 1; int1++)
@@ -44,18 +44,12 @@ namespace Calculator
                         strExpression = strExpression.Remove(int1, 1);
                         strExpression = strExpression.Insert(int1, ".");
                     }
-
-
                 }
 
-                //Console.WriteLine(strExpression);
 
 
-
-
-
-
-                if (strExpression.Contains("[") == true || strExpression.Contains("]") == true || strExpression.Contains("{") == true || strExpression.Contains("}") == true || strExpression.Contains("=") == true) //Проверяем на наличие скобок, которые в дальнейшем будут определять методы, и знака = (т.е. изначально быть скобок и знака = не должно).
+                //Проверяем на наличие скобок, которые в дальнейшем будут определять методы, и знака = (т.е. изначально быть скобок и знака = не должно).
+                if (strExpression.Contains("[") == true || strExpression.Contains("]") == true || strExpression.Contains("{") == true || strExpression.Contains("}") == true || strExpression.Contains("=") == true)
                 {
                     Console.WriteLine("Вы ввели не корректные данные.");
                     Console.WriteLine("");
@@ -104,7 +98,10 @@ namespace Calculator
                 //------------------------------------------------------------------------------
                 //------------------------------------------------------------------------------
 
-                F_voiNumberControl(ref strExpression); //Выполняем поиск чисел.
+
+
+
+                F_voiFunctionControlNumber(ref strExpression); //Выполняем поиск чисел.
 
 
                 F_voiFunctionControlHistory(ref strExpression); //Выполняем поиск введенных функций.
@@ -133,11 +130,27 @@ namespace Calculator
                 {
                     booControlCalculationOfSimpleFunctions = F_booCalculationOfSimpleFunctions(ref strExpression); //Преобразование простых функций.
                 }
-                
 
 
 
-                
+
+
+                bool booControlCalculationOfComplexFunctions = true;
+                //while (booControlCalculationOfComplexFunctions == true)
+                //{
+                    booControlCalculationOfComplexFunctions = F_booCalculationOfComplexFunctions(ref strExpression); //Преобразование сложных функций.
+                //}
+
+
+
+
+
+
+
+
+
+
+
                 Console.WriteLine(strExpression);
                 Console.WriteLine("");
 
@@ -157,14 +170,132 @@ namespace Calculator
 
 
 
-        static void F_voiCalculationOfComplexFunctions(ref string f_strExpression)
+        static bool F_booCalculationOfComplexFunctions(ref string f_strExpression)
         {
+            string strExpression = f_strExpression;
+
+            int intStartBracket = 0;
+            int intStopBracket = 0;
+
+            string ?strFunctionName = null;
+            string ?strFunctionBody = null;
+            bool booControlFunctionBody = false;
+
+            int intCountBracket = 0;
+
+
+
+            /*
+            bool booResult = false;
+            string strNumber = null;
+            double dblNumber = 0;
+            string strTransformedFunction = null;
+            */
+
+
+
+
+
+            for (int int1 = 0; int1 <= strExpression.Length - 1; int1++)
+            {
+                if (strExpression[int1] == '[') //Блок поиска [] скобок.
+                {
+                    for (int int2 = int1; int2 <= strExpression.Length - 1; int2++)
+                    {
+                        if (strExpression[int2] == ']')
+                        {
+                            intStartBracket = int1;
+                            intStopBracket = int2;
+                            strFunctionName = strExpression.Substring(intStartBracket + 1, intStopBracket - intStartBracket - 1); //Врезаем имя функции. Берем кусок текста без скобок.
+                            break;
+                        }
+                    }
+
+                    //Блок поиска {} скобок.
+                    booControlFunctionBody = false;
+                    intCountBracket = 0;
+
+                    for (int int2 = int1; int2 <= strExpression.Length - 1; int2++)
+                    {
+                        if (strExpression[int2] == '{')
+                        {
+                            intCountBracket++;
+
+                            if (intCountBracket == 1)
+                            {
+                                intStartBracket = int2;
+                            }
+                            else if(intCountBracket > 1)
+                            {
+                                booControlFunctionBody = false;
+                                break;
+                            }
+                        }
+                        else if (strExpression[int2] == '}')
+                        {
+                            intCountBracket--;
+
+                            if (intCountBracket == 0)
+                            {
+                                intStopBracket = int2;
+                                strFunctionBody = strExpression.Substring(intStartBracket + 1, intStopBracket - intStartBracket - 1); //Врезаем тело функции. Берем кусок текста без скобок.
+                                
+                                booControlFunctionBody = true;
+                                break;
+                            }
+                        }
+                    }
+                }
+                
+                
+                
+                
+                
+                Console.WriteLine(strFunctionName);
+                Console.WriteLine(strFunctionBody);
+                break;
+
+
+
+                /*
+                booResult = F_booRightBracketPosition(strExpression, intStartBracket, ref intStopBracket);
+
+
+
+                    if (booResult == true)
+                    {
+                        strNumber = strExpression.Substring(intStartBracket + 1, intStopBracket - intStartBracket - 1); //Берем кусок текста без скобок.
+
+                        booResult = double.TryParse(strNumber, out dblNumber);
+                        if (booResult == true)
+                        {
+                            strTransformedFunction = Convert.ToString(dblNumber);
+                            strNumber = "(" + strNumber + ")";
+                            strExpression = strExpression.Replace(strNumber, strTransformedFunction);
+                        }
+                    }
+                */
+
+            }
+
+            if (f_strExpression != strExpression)
+            {
+                f_strExpression = strExpression;
+                return (true);
+            }
+            else
+            {
+                return (false);
+            }
+
+
+
         }
 
 
 
 
-        static void F_voiNumberControl(ref string f_strExpression)
+        static void F_voiFunctionControlNumber(ref string f_strExpression)
         {
             bool booControl = false; //т.е. не число.
 
@@ -465,9 +596,9 @@ namespace Calculator
             bool booResult = false;
             int intStartBracket = 0;
             int intStopBracket = 0;
-            string strFunction = null;
-            double dblNumber = 0.0;
-            string strTransformedFunction = null;
+            string strNumber = null;
+            double dblNumber = 0;
+            string strTransformedFunction =  null;
 
             for (int int1 = 0; int1 <= strExpression.Length - 1; int1++)
             {
@@ -478,18 +609,16 @@ namespace Calculator
 
                     booResult = F_booRightBracketPosition(strExpression, intStartBracket, ref intStopBracket);
 
-
-
                     if (booResult == true)
                     {
-                        strFunction = strExpression.Substring(intStartBracket + 1, intStopBracket - intStartBracket - 1); //Берем кусок текста без скобок.
+                        strNumber = strExpression.Substring(intStartBracket + 1, intStopBracket - intStartBracket - 1); //Берем кусок текста без скобок.
                         
-                        booResult = double.TryParse(strFunction, out dblNumber);
+                        booResult = double.TryParse(strNumber, out dblNumber);
                         if (booResult == true)
                         {
                             strTransformedFunction = Convert.ToString(dblNumber);
-                            strFunction = "(" + strFunction + ")";
-                            strExpression = strExpression.Replace(strFunction, strTransformedFunction);
+                            strNumber = "(" + strNumber + ")";
+                            strExpression = strExpression.Replace(strNumber, strTransformedFunction);
                         }
                     }
                 }
