@@ -782,7 +782,7 @@ namespace Calculator
                     return (false);
                 }
 
-                dblFunctionResult = Math.Log(arrdblParameter[0], arrdblParameter[1]); //Если получилось, то проводим расчеты.
+                dblFunctionResult = Math.Pow(arrdblParameter[0], arrdblParameter[1]); //Если получилось, то проводим расчеты.
 
                 f_strFunctionResult = Convert.ToString(dblFunctionResult); //Конвертируем в строку и отправляем в f_strFunctionResult
 
