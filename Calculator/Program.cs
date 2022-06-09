@@ -36,7 +36,6 @@ namespace Calculator
             while (1 == 1)
             {
                 Console.WriteLine("Введите выражение. Для выхода нажмите: Exit.");
-                Console.WriteLine("");
 
 
                 string? strExpression = Console.ReadLine();
@@ -50,7 +49,6 @@ namespace Calculator
 
                 //------------------------------------------------------------------------------
                 strExpression = strExpression.Replace(" ", ""); //Удаляем все пробелы.
-                Console.WriteLine(strExpression);
 
 
                 //------------------------------------------------------------------------------
@@ -76,7 +74,6 @@ namespace Calculator
                         strExpression = strExpression.Insert(int1, ".");
                     }
                 }
-                Console.WriteLine(strExpression);
 
 
                 //------------------------------------------------------------------------------
@@ -91,7 +88,6 @@ namespace Calculator
                 
                 //------------------------------------------------------------------------------
                 F_voiFunctionControlNumber(ref strExpression); //Выполняем поиск чисел.
-                Console.WriteLine(strExpression);
 
 
                 F_voiFunctionControlHistory(ref strExpression); //Выполняем поиск введенных функций.
@@ -110,10 +106,10 @@ namespace Calculator
                         strExpression = strExpression.Insert(0, "(-1)*");
                     }
                 }
-                Console.WriteLine(strExpression);
 
 
                 F_voiFunctionControlFuture(ref strExpression); //Создаем функции /, *, +,-.
+                Console.WriteLine("Этапы расчета:");
                 Console.WriteLine(strExpression);
 
 
@@ -123,11 +119,8 @@ namespace Calculator
                 while (booControlCalculationOfSimpleFunctions == true)
                 {
                     booControlCalculationOfSimpleFunctions = F_booCalculationOfSimpleFunctions(ref strExpression); //Преобразование простых функций.
-                    Console.WriteLine(strExpression);
                     booControlCalculationOfComplexFunctions = F_booCalculationOfComplexFunctions(ref strExpression); //Преобразование сложных функций.
-                    Console.WriteLine(strExpression);
                 }
-
 
                 
                 bool booControl = false;
@@ -143,6 +136,7 @@ namespace Calculator
                 {
                     strExpression = strExpression.Replace(",", ".");
 
+                    Console.WriteLine("Результат:");
                     Console.WriteLine(strExpression);
                     Console.WriteLine("");
                 }
