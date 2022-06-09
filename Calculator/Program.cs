@@ -32,7 +32,6 @@ namespace Calculator
             Console.WriteLine("!(int value): возвращает факториал числа value.");
             Console.WriteLine("");
             
-            string? strExpression = null;
 
             while (1 == 1)
             {
@@ -40,7 +39,7 @@ namespace Calculator
                 Console.WriteLine("");
 
 
-                strExpression = Console.ReadLine();
+                string? strExpression = Console.ReadLine();
 
                 if (strExpression == "Exit" || strExpression == "exit")
                 {
@@ -51,6 +50,7 @@ namespace Calculator
 
                 //------------------------------------------------------------------------------
                 strExpression = strExpression.Replace(" ", ""); //Удаляем все пробелы.
+                Console.WriteLine(strExpression);
 
 
                 //------------------------------------------------------------------------------
@@ -76,6 +76,7 @@ namespace Calculator
                         strExpression = strExpression.Insert(int1, ".");
                     }
                 }
+                Console.WriteLine(strExpression);
 
 
                 //------------------------------------------------------------------------------
@@ -90,6 +91,7 @@ namespace Calculator
                 
                 //------------------------------------------------------------------------------
                 F_voiFunctionControlNumber(ref strExpression); //Выполняем поиск чисел.
+                Console.WriteLine(strExpression);
 
 
                 F_voiFunctionControlHistory(ref strExpression); //Выполняем поиск введенных функций.
@@ -108,9 +110,11 @@ namespace Calculator
                         strExpression = strExpression.Insert(0, "(-1)*");
                     }
                 }
+                Console.WriteLine(strExpression);
 
 
                 F_voiFunctionControlFuture(ref strExpression); //Создаем функции /, *, +,-.
+                Console.WriteLine(strExpression);
 
 
                 //В этом блоке РЕШАЕМ все функции.
@@ -119,7 +123,9 @@ namespace Calculator
                 while (booControlCalculationOfSimpleFunctions == true)
                 {
                     booControlCalculationOfSimpleFunctions = F_booCalculationOfSimpleFunctions(ref strExpression); //Преобразование простых функций.
+                    Console.WriteLine(strExpression);
                     booControlCalculationOfComplexFunctions = F_booCalculationOfComplexFunctions(ref strExpression); //Преобразование сложных функций.
+                    Console.WriteLine(strExpression);
                 }
 
 
@@ -135,9 +141,10 @@ namespace Calculator
                 }
                 else
                 {
+                    strExpression = strExpression.Replace(",", ".");
+
                     Console.WriteLine(strExpression);
                     Console.WriteLine("");
-
                 }
             }
         }
@@ -444,9 +451,9 @@ namespace Calculator
             bool booResult = false;
             int intStartBracket = 0;
             int intStopBracket = 0;
-            string strNumber = null;
+            string strNumber = "";
             double dblNumber = 0;
-            string strTransformedFunction = null;
+            string strTransformedFunction = "";
 
             for (int int1 = 0; int1 <= strExpression.Length - 1; int1++)
             {
@@ -491,12 +498,12 @@ namespace Calculator
             int intStartBracket = 0;
             int intStopBracket = 0;
 
-            string? strFunctionName = null;
-            string? strFunctionBody = null;
+            string? strFunctionName = "";
+            string? strFunctionBody = "";
             bool booControlFunctionName = false;
             bool booControlFunctionBody = false;
 
-            string? strFunctionResult = null;
+            string? strFunctionResult = "";
 
             for (int int1 = 0; int1 <= strExpression.Length - 1; int1++)
             {
@@ -546,8 +553,6 @@ namespace Calculator
                     }
                 }
 
-                
-
                 if (booControlFunctionName = true && booControlFunctionBody == true)
                 {
                     bool booControl = false;
@@ -558,28 +563,7 @@ namespace Calculator
                     {
                         strExpression = strExpression.Replace("[" + strFunctionName + "]{" + strFunctionBody + "}", strFunctionResult);
                     }
-
-
-
                 }
-
-
-
-
-
-
-                ///////Обработка имени и тела функции.
-
-
-
-                /*
-                if (booControlFunctionName = true && booControlFunctionBody == true)
-                {
-                    Console.WriteLine(strFunctionName);
-                    Console.WriteLine(strFunctionBody);
-                }
-                */
-
             }
 
             if (f_strExpression != strExpression)
