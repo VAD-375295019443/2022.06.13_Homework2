@@ -60,6 +60,21 @@ namespace Calculator
                 //Какой-то значимый текст точно введен, потому далее.
 
 
+                //Проверяем наличие знака "=" в конце выражения.
+                if (strExpression[strExpression.Length - 1] == '=')
+                {
+                    strExpression = strExpression.Remove(strExpression.Length - 1);
+                }
+
+
+                if (strExpression == "") //Если после удаления знака "=" строка пустая, то error.
+                {
+                    Console.WriteLine("Вы не ввели значение.");
+                    continue;
+                }
+                //Какой-то значимый текст точно введен, потому далее.
+                
+                
                 //------------------------------------------------------------------------------
                 for (int int1 = 0; int1 <= strExpression.Length - 1; int1++)
                 {
