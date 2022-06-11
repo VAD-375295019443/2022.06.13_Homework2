@@ -88,9 +88,11 @@ namespace Calculator
                 
                 //------------------------------------------------------------------------------
                 F_voiFunctionControlNumber(ref strExpression); //Выполняем поиск чисел.
+                //Console.WriteLine(strExpression);
 
 
                 F_voiFunctionControlHistory(ref strExpression); //Выполняем поиск введенных функций.
+                //Console.WriteLine(strExpression);
 
 
                 //Корректируем начало строки.
@@ -106,6 +108,7 @@ namespace Calculator
                         strExpression = strExpression.Insert(0, "(-1)*");
                     }
                 }
+                //Console.WriteLine(strExpression);
 
 
                 F_voiFunctionControlFuture(ref strExpression); //Создаем функции /, *, +,-.
@@ -116,7 +119,7 @@ namespace Calculator
                 //В этом блоке РЕШАЕМ все функции.
                 bool booControlCalculationOfSimpleFunctions = true;
                 bool booControlCalculationOfComplexFunctions = true;
-                while (booControlCalculationOfSimpleFunctions == true)
+                while (booControlCalculationOfSimpleFunctions == true || booControlCalculationOfComplexFunctions == true)
                 {
                     booControlCalculationOfSimpleFunctions = F_booCalculationOfSimpleFunctions(ref strExpression); //Преобразование простых функций.
                     booControlCalculationOfComplexFunctions = F_booCalculationOfComplexFunctions(ref strExpression); //Преобразование сложных функций.
@@ -136,8 +139,7 @@ namespace Calculator
                 {
                     strExpression = strExpression.Replace(",", ".");
 
-                    Console.WriteLine("Результат:");
-                    Console.WriteLine(strExpression);
+                    Console.WriteLine($"Результат: {strExpression}");
                     Console.WriteLine("");
                 }
             }
@@ -475,6 +477,7 @@ namespace Calculator
 
             if (f_strExpression != strExpression)
             {
+                Console.WriteLine(strExpression);
                 f_strExpression = strExpression;
                 return (true);
             }
@@ -562,6 +565,7 @@ namespace Calculator
 
             if (f_strExpression != strExpression)
             {
+                Console.WriteLine(strExpression);
                 f_strExpression = strExpression;
                 return (true);
             }
@@ -904,6 +908,6 @@ namespace Calculator
                 }
             }
             return (true);
-        } //Создаем double массив параметров.
+        }
     }
 }
