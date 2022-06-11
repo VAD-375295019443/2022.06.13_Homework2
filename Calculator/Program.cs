@@ -23,7 +23,6 @@ namespace Calculator
             Console.WriteLine("Exp(double d): возвращает основание натурального логарифма, возведенное в степень d.");
             Console.WriteLine("Log(double d): возвращает натуральный логарифм числа d.");
             Console.WriteLine("Log(double a, double newBase): возвращает логарифм числа a по основанию newBase.");
-            Console.WriteLine("Log10(double d): возвращает десятичный логарифм числа d.");
             Console.WriteLine("Pow(double a, double b): возвращает число a, возведенное в степень b.");
             Console.WriteLine("Round(double d): возвращает число d, округленное до ближайшего целого числа.");
             Console.WriteLine("Sin(double value): возвращает синус угла value.");
@@ -653,7 +652,7 @@ namespace Calculator
 
                 return (true);
             }
-            else if (f_strFunctionName == "Abs") //(double value): возвращает абсолютное значение для аргумента value
+            else if (f_strFunctionName == "Abs" || f_strFunctionName == "abs") //(double value): возвращает абсолютное значение для аргумента value
             {
                 booControl = F_booCalculationParameter(f_strFunctionBody, 1, ref arrdblParameter);
                 if (booControl == false) //Если НЕ получилось преобразовать f_strFunctionBody в массив параметров.
@@ -667,7 +666,7 @@ namespace Calculator
 
                 return (true);
             }
-            else if (f_strFunctionName == "Acos") //(double value): возвращает арккосинус value. Параметр value должен иметь значение от -1 до 1
+            else if (f_strFunctionName == "Acos" || f_strFunctionName == "acos") //(double value): возвращает арккосинус value. Параметр value должен иметь значение от -1 до 1
             {
                 booControl = F_booCalculationParameter(f_strFunctionBody, 1, ref arrdblParameter);
                 if (booControl == false || arrdblParameter[0]<(-1) || arrdblParameter[0]>1) //Если НЕ получилось преобразовать f_strFunctionBody в массив параметров.
@@ -681,7 +680,7 @@ namespace Calculator
 
                 return (true);
             }
-            else if (f_strFunctionName == "Asin") //(double value): возвращает арксинус value.Параметр value должен иметь значение от -1 до 1
+            else if (f_strFunctionName == "Asin" || f_strFunctionName == "asin") //(double value): возвращает арксинус value.Параметр value должен иметь значение от -1 до 1
             {
                 booControl = F_booCalculationParameter(f_strFunctionBody, 1, ref arrdblParameter);
                 if (booControl == false || arrdblParameter[0] < (-1) || arrdblParameter[0] > 1) //Если НЕ получилось преобразовать f_strFunctionBody в массив параметров.
@@ -695,7 +694,7 @@ namespace Calculator
 
                 return (true);
             }
-            else if (f_strFunctionName == "Atan") //(double value): возвращает арктангенс value
+            else if (f_strFunctionName == "Atan" || f_strFunctionName == "atan") //(double value): возвращает арктангенс value
             {
                 booControl = F_booCalculationParameter(f_strFunctionBody, 1, ref arrdblParameter);
                 if (booControl == false) //Если НЕ получилось преобразовать f_strFunctionBody в массив параметров.
@@ -709,7 +708,7 @@ namespace Calculator
 
                 return (true);
             }
-            else if (f_strFunctionName == "Cos") //(double d): возвращает косинус угла d
+            else if (f_strFunctionName == "Cos" || f_strFunctionName == "cos") //(double d): возвращает косинус угла d
             {
                 booControl = F_booCalculationParameter(f_strFunctionBody, 1, ref arrdblParameter);
                 if (booControl == false) //Если НЕ получилось преобразовать f_strFunctionBody в массив параметров.
@@ -723,7 +722,7 @@ namespace Calculator
 
                 return (true);
             }
-            else if (f_strFunctionName == "Cosh") //(double d): возвращает гиперболический косинус угла d
+            else if (f_strFunctionName == "Cosh" || f_strFunctionName == "cosh") //(double d): возвращает гиперболический косинус угла d
             {
                 booControl = F_booCalculationParameter(f_strFunctionBody, 1, ref arrdblParameter);
                 if (booControl == false) //Если НЕ получилось преобразовать f_strFunctionBody в массив параметров.
@@ -737,7 +736,7 @@ namespace Calculator
 
                 return (true);
             }
-            else if (f_strFunctionName == "Exp") //(double d): возвращает основание натурального логарифма, возведенное в степень d
+            else if (f_strFunctionName == "Exp" || f_strFunctionName == "exp") //(double d): возвращает основание натурального логарифма, возведенное в степень d
             {
                 booControl = F_booCalculationParameter(f_strFunctionBody, 1, ref arrdblParameter);
                 if (booControl == false) //Если НЕ получилось преобразовать f_strFunctionBody в массив параметров.
@@ -751,7 +750,7 @@ namespace Calculator
 
                 return (true);
             }
-            else if (f_strFunctionName == "Log") //(double d): возвращает натуральный логарифм числа d
+            else if (f_strFunctionName == "Log" || f_strFunctionName == "log") //(double d): возвращает натуральный логарифм числа d
             {
                 booControl = F_booCalculationParameter(f_strFunctionBody, 1, ref arrdblParameter);
                 if (booControl == false) //Если НЕ получилось преобразовать f_strFunctionBody в массив параметров.
@@ -765,7 +764,7 @@ namespace Calculator
 
                 return (true);
             }
-            else if (f_strFunctionName == "Log") //(double a, double newBase): возвращает логарифм числа a по основанию newBase
+            else if (f_strFunctionName == "Log" || f_strFunctionName == "log") //(double a, double newBase): возвращает логарифм числа a по основанию newBase
             {
                 booControl = F_booCalculationParameter(f_strFunctionBody, 2, ref arrdblParameter);
                 if (booControl == false) //Если НЕ получилось преобразовать f_strFunctionBody в массив параметров.
@@ -779,21 +778,7 @@ namespace Calculator
 
                 return (true);
             }
-            else if (f_strFunctionName == "Log10") //(double d): возвращает десятичный логарифм числа d
-            {
-                booControl = F_booCalculationParameter(f_strFunctionBody, 1, ref arrdblParameter);
-                if (booControl == false) //Если НЕ получилось преобразовать f_strFunctionBody в массив параметров.
-                {
-                    return (false);
-                }
-
-                dblFunctionResult = Math.Log10(arrdblParameter[0]); //Если получилось, то проводим расчеты.
-
-                f_strFunctionResult = Convert.ToString(dblFunctionResult); //Конвертируем в строку и отправляем в f_strFunctionResult
-
-                return (true);
-            }
-            else if (f_strFunctionName == "Pow") //(double a, double b): возвращает число a, возведенное в степень b
+            else if (f_strFunctionName == "Pow" || f_strFunctionName == "pow") //(double a, double b): возвращает число a, возведенное в степень b
             {
                 booControl = F_booCalculationParameter(f_strFunctionBody, 2, ref arrdblParameter);
                 if (booControl == false) //Если НЕ получилось преобразовать f_strFunctionBody в массив параметров.
@@ -807,7 +792,7 @@ namespace Calculator
 
                 return (true);
             }
-            else if (f_strFunctionName == "Round") //(double d): возвращает число d, округленное до ближайшего целого числа
+            else if (f_strFunctionName == "Round" || f_strFunctionName == "round") //(double d): возвращает число d, округленное до ближайшего целого числа
             {
                 booControl = F_booCalculationParameter(f_strFunctionBody, 1, ref arrdblParameter);
                 if (booControl == false) //Если НЕ получилось преобразовать f_strFunctionBody в массив параметров.
@@ -821,7 +806,7 @@ namespace Calculator
 
                 return (true);
             }
-            else if (f_strFunctionName == "Sin") //(double value): возвращает синус угла value
+            else if (f_strFunctionName == "Sin" || f_strFunctionName == "sin") //(double value): возвращает синус угла value
             {
                 booControl = F_booCalculationParameter(f_strFunctionBody, 1, ref arrdblParameter);
                 if (booControl == false) //Если НЕ получилось преобразовать f_strFunctionBody в массив параметров.
@@ -835,7 +820,7 @@ namespace Calculator
 
                 return (true);
             }
-            else if (f_strFunctionName == "Sqrt") //(double value): возвращает квадратный корень числа value
+            else if (f_strFunctionName == "Sqrt" || f_strFunctionName == "sqrt") //(double value): возвращает квадратный корень числа value
             {
                 booControl = F_booCalculationParameter(f_strFunctionBody, 1, ref arrdblParameter);
                 if (booControl == false) //Если НЕ получилось преобразовать f_strFunctionBody в массив параметров.
@@ -849,7 +834,7 @@ namespace Calculator
 
                 return (true);
             }
-            else if (f_strFunctionName == "Tan") //(double value): возвращает тангенс угла value
+            else if (f_strFunctionName == "Tan" || f_strFunctionName == "tan") //(double value): возвращает тангенс угла value
             {
                 booControl = F_booCalculationParameter(f_strFunctionBody, 1, ref arrdblParameter);
                 if (booControl == false) //Если НЕ получилось преобразовать f_strFunctionBody в массив параметров.
