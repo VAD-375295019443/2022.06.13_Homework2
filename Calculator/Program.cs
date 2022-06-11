@@ -6,35 +6,35 @@ namespace Calculator
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Вашему вниманию предлагается калькулятор, выполняющий расчеты строки вида:");
-            Console.WriteLine("2*3+(18-12)/4+!(5)*Pow(2.3, 4) и т.д. (Для получения результата нажмите ENTER).");
+            Console.WriteLine("Your attention is invited to a calculator that performs calculations of a line of the form:");  //Вашему вниманию предлагается калькулятор, выполняющий расчеты строки вида:
+            Console.WriteLine("2*3+(18-12)/4+!(5)*Pow(2.3, 4) и т.д. (Press ENTER to get the result).");  //Для получения результата нажмите ENTER.
             Console.WriteLine("");
-            Console.WriteLine("Вы имеете в асенале следующие операторы и функции:");
-            Console.WriteLine("+: оператор сложения.");
-            Console.WriteLine("-: оператор вычитания.");
-            Console.WriteLine("*: оператор умножения.");
-            Console.WriteLine("/: оператор деления.");
-            Console.WriteLine("Abs(double value): возвращает абсолютное значение для аргумента value.");
-            Console.WriteLine("Acos(double value): возвращает арккосинус value.Параметр value должен иметь значение от -1 до 1.");
-            Console.WriteLine("Asin(double value): возвращает арксинус value.Параметр value должен иметь значение от -1 до 1.");
-            Console.WriteLine("Atan(double value): возвращает арктангенс value.");
-            Console.WriteLine("Cos(double d): возвращает косинус угла d.");
-            Console.WriteLine("Cosh(double d): возвращает гиперболический косинус угла d.");
-            Console.WriteLine("Exp(double d): возвращает основание натурального логарифма, возведенное в степень d.");
-            Console.WriteLine("Log(double d): возвращает натуральный логарифм числа d.");
-            Console.WriteLine("Log(double a, double newBase): возвращает логарифм числа a по основанию newBase.");
-            Console.WriteLine("Pow(double a, double b): возвращает число a, возведенное в степень b.");
-            Console.WriteLine("Round(double d): возвращает число d, округленное до ближайшего целого числа.");
-            Console.WriteLine("Sin(double value): возвращает синус угла value.");
-            Console.WriteLine("Sqrt(double value): возвращает квадратный корень числа value.");
-            Console.WriteLine("Tan(double value): возвращает тангенс угла value.");
-            Console.WriteLine("!(int value): возвращает факториал числа value.");
+            Console.WriteLine("You have the following operators and functions in your arsenal:"); //Вы имеете в арсенале следующие операторы и функции:
+            Console.WriteLine("+: addition operator."); //оператор сложения.
+            Console.WriteLine("-: subtraction operator."); //оператор вычитания.
+            Console.WriteLine("*: multiplication operator."); //оператор умножения.
+            Console.WriteLine("/: division operator."); //оператор деления.
+            Console.WriteLine("Abs(double value): Returns the absolute value for the argument value."); //возвращает абсолютное значение для аргумента value.
+            Console.WriteLine("Acos(double value): returns the arc cosine of value. The value parameter must be between -1 and 1."); //возвращает арккосинус value.Параметр value должен иметь значение от -1 до 1.
+            Console.WriteLine("Asin(double value): returns the arcsine of value. The value parameter must be between -1 and 1."); //возвращает арксинус value.Параметр value должен иметь значение от -1 до 1.
+            Console.WriteLine("Atan(double value): returns the arc tangent of value."); //возвращает арктангенс value.
+            Console.WriteLine("Cos(double d): returns the cosine of angle d."); //возвращает косинус угла d.
+            Console.WriteLine("Cosh(double d): returns the hyperbolic cosine of angle d."); //возвращает гиперболический косинус угла d.
+            Console.WriteLine("Exp(double d): returns the base of the natural logarithm raised to the power of d."); //возвращает основание натурального логарифма, возведенное в степень d.
+            Console.WriteLine("Log(double d): returns the natural logarithm of d."); //возвращает натуральный логарифм числа d.
+            Console.WriteLine("Log(double a, double newBase): returns the logarithm of a to the base newBase."); //возвращает логарифм числа a по основанию newBase.
+            Console.WriteLine("Pow(double a, double b): returns the number a raised to the power b."); //возвращает число a, возведенное в степень b.
+            Console.WriteLine("Round(double d): returns the number d rounded to the nearest whole number."); //возвращает число d, округленное до ближайшего целого числа.
+            Console.WriteLine("Sin(double value): returns the sine of the angle value."); //возвращает синус угла value.
+            Console.WriteLine("Sqrt(double value): returns the square root of value."); //возвращает квадратный корень числа value.
+            Console.WriteLine("Tan(double value): returns the tangent of the angle value."); //возвращает тангенс угла value.
+            Console.WriteLine("!(int value): returns the factorial of value."); //возвращает факториал числа value.
             Console.WriteLine("");
             
 
             while (1 == 1)
             {
-                Console.WriteLine("Введите выражение. Для выхода нажмите: Exit.");
+                Console.WriteLine("Enter an expression. To exit, press: Exit."); //Введите выражение. Для выхода нажмите: Exit.
 
 
                 string? strExpression = Console.ReadLine();
@@ -53,7 +53,7 @@ namespace Calculator
                 //------------------------------------------------------------------------------
                 if (strExpression == "") //Если после удаления пробелов строка пустая, то error.
                 {
-                    Console.WriteLine("Вы не ввели значение.");
+                    Console.WriteLine("You have not entered a value."); //Вы не ввели значение.
                     continue;
                 }
                 //Какой-то значимый текст точно введен, потому далее.
@@ -68,7 +68,7 @@ namespace Calculator
 
                 if (strExpression == "") //Если после удаления знака "=" строка пустая, то error.
                 {
-                    Console.WriteLine("Вы не ввели значение.");
+                    Console.WriteLine("You have not entered a value."); //Вы не ввели значение.
                     continue;
                 }
                 //Какой-то значимый текст точно введен, потому далее.
@@ -94,7 +94,7 @@ namespace Calculator
                 //Проверяем на наличие скобок, которые в дальнейшем будут определять методы, и знака = (т.е. изначально быть скобок и знака = не должно).
                 if (strExpression.Contains("[") == true || strExpression.Contains("]") == true || strExpression.Contains("{") == true || strExpression.Contains("}") == true || strExpression.Contains("=") == true)
                 {
-                    Console.WriteLine("Вы ввели не корректные данные.");
+                    Console.WriteLine("You have entered incorrect data."); //Вы ввели не корректные данные.
                     Console.WriteLine("");
                     continue;
                 }
@@ -126,7 +126,7 @@ namespace Calculator
 
 
                 F_voiFunctionControlFuture(ref strExpression); //Создаем функции /, *, +,-.
-                Console.WriteLine("Этапы расчета:");
+                Console.WriteLine("Calculation steps:"); //Этапы вычислений:
                 Console.WriteLine(strExpression);
 
 
@@ -145,7 +145,7 @@ namespace Calculator
                 booControl = double.TryParse(strExpression, out dblExpression);
                 if (booControl == false)
                 {
-                    Console.WriteLine("Вы ввели не корректные данные.");
+                    Console.WriteLine("You have entered incorrect data."); //Вы ввели не корректные данные.
                     Console.WriteLine("");
                     continue;
                 }
@@ -153,7 +153,7 @@ namespace Calculator
                 {
                     strExpression = strExpression.Replace(",", ".");
 
-                    Console.WriteLine($"Результат: {strExpression}");
+                    Console.WriteLine($"Result: {strExpression}"); //Результат:
                     Console.WriteLine("");
                 }
             }
